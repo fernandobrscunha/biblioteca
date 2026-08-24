@@ -15,13 +15,13 @@
                         <h1 class="text-white fw-bold">📚 Novo Livro</h1>
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        <form action="" method="POST">
                             <!-- Titulo -->
                             <div class="mb-3">
                                 <label for="" class="form-label">
                                     Título do livro
                                 </label>
-                                <input type="text" class="form-control">
+                                <input name="title" type="text" class="form-control">
                             </div>
 
                             <!-- Autor(a) -->
@@ -29,7 +29,7 @@
                                 <label for="" class="form-label">
                                     Autor(a)
                                 </label>
-                                <input type="text" class="form-control">
+                                <input name="author" type="text" class="form-control">
                             </div>
 
                             <!-- Sinopse -->
@@ -37,7 +37,7 @@
                                 <label for="" class="form-label">
                                     Sinopse
                                 </label>
-                                <textarea class="form-control"></textarea>
+                                <textarea name="resume" class="form-control"></textarea>
                             </div>
                             
                             <!-- Botões -->

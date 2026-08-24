@@ -18,6 +18,10 @@ app.set('view engine', 'ejs')
 //Definir a localização da pasta views
 app.set('views', './src/views')
 
+//Configurar o backend para
+//aceitar requisições de um formulário
+app.use(express.urlencoded({ extended: true }))
+
 /* ===========================================
  Rotas
 =========================================== */
