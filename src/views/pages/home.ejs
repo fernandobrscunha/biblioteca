@@ -25,36 +25,12 @@
     <!-- Livros cadastrados -->
     <section class="container mt-3">
       <div class="row">
-
-        <!-- Livro -->
-        <div class="col-3">
-          <div class="card shadow" >
-            <img class="card-img-top pt-4 px-4" src="https://capricho.abril.com.br/wp-content/uploads/2017/06/download.jpg?quality=85&strip=info" alt="">
-            <div class="card-body">
-              <h5 class="card-title">
-                Harry Potter e a Pedra Filosofal
-              </h5>
-              <p class="text-secondary">J. K. Rowling</p>
-              <button class="btn btn-dark w-100">Ler agora</button>
-            </div><!-- fim do card-body -->
-          </div><!-- fim do card -->
-        </div><!-- fim da col(Livro) -->
-
-         <!-- Livro -->
-        <div class="col-3">
-          <div class="card shadow w-100" >
-            <img class="card-img-top" src="https://capricho.abril.com.br/wp-content/uploads/2017/06/download.jpg?quality=85&strip=info" alt="">
-            <div class="card-body">
-              <h5 class="card-title">
-                Harry Potter e a Pedra Filosofal
-              </h5>
-              <p>J. K. Rowling</p>
-            </div><!-- fim do card-body -->
-          </div><!-- fim do card -->
-        </div><!-- fim da col(Livro) -->
         
+        <!-- AQUIIII -->
+        <% books.forEach(book => { %>
+          <%- include('../components/card_book.ejs', { book }) %>
+        <% }) %>
         
-
       </div> <!-- fim da row -->
     </section>
     <br><br><br><br><br><br><br><br><br><br><br><br>

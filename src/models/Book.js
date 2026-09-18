@@ -13,17 +13,32 @@ const db = require('../config/db.js')
  */
 function save(book) {
   return db.insert(book).into('books')
-    .then( _ => {
-      return { 
-        type: "success", 
-        msg: "Livro inserido com sucesso!" 
+    .then(_ => {
+      return {
+        type: "success",
+        msg: "Livro inserido com sucesso!"
       }
     })
     .catch(erro => {
-      return { 
-        type: "error", msg: "Erro: " + erro }
+      return {
+        type: "error", msg: "Erro: " + erro
+      }
     })
 }//fim do salvar
 
+/**
+ * Retorna todos os livros cadastrados,
+ * ordenados pelo título em ordem crescente.
+ * @returns {Promise} Lista de livros ou objeto de erro.
+*/
+function all() {
+  return db.select('*').from('books')
+    .orderBy('title', 'ASC')
+    .then(books => { return books })
+    .catch(erro => {
+      return { type: "error", msg: "Erro: " + erro }
+    })
+}//fim do all
+
 //Exportando a função save
-module.exports = { save }
+module.exports = { save, all }

@@ -15,4 +15,12 @@ async function store(req,res){
     return res.send(msg)
 }
 
-module.exports = { store }
+async function index(req, res){
+    //Realizar a consulta no BD
+    const books = await Book.all()
+    
+    //Enviar os dados para a tela
+    res.render('pages/home',{books})
+}
+
+module.exports = { store, index }

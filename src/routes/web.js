@@ -12,9 +12,7 @@ require('../controllers/BookController')
 // POST  /books/edit/:id   => Editar o livro
 // POST  /books/delete/:id => Excluir o livro
 
-router.get('/', (req, res) => {
-  res.render('pages/home')
-})
+router.get('/', BookController.index)
 
 router.get('/books/new', (req, res) => {
   res.render('pages/book_form')
