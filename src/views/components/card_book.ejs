@@ -1,14 +1,26 @@
 <!-- Livro -->
-<div class="col-3">
-    <div class="card shadow">
-        <img class="card-img-top pt-4 px-4"
-            src="https://capricho.abril.com.br/wp-content/uploads/2017/06/download.jpg?quality=85&strip=info" alt="">
-        <div class="card-body">
-            <h5 class="card-title">
-                <%= book.title %>
-            </h5>
-            <p class="text-secondary">J. K. Rowling</p>
-            <button class="btn btn-dark w-100">Ler agora</button>
-        </div><!-- fim do card-body -->
-    </div><!-- fim do card -->
-</div><!-- fim da col(Livro) -->
+<div class="col-12 col-sm-6 col-lg-3">
+  <article class="card border border-success-subtle rounded-4 shadow-sm overflow-hidden h-100 bg-white">
+    <div class="ratio ratio-4x3 bg-body-secondary">
+      <img class="object-fit-cover p-3"
+        src="<%= book.cover || 'https://img.magnific.com/premium-psd/green-book-cover-mockup_1139106-7538.jpg?semt=ais_hybrid&w=740&q=80' %>"
+        alt="Capa do livro <%= book.title %>">
+    </div>
+    <div class="card-body d-flex flex-column">
+      <span class="badge bg-success-subtle text-success-emphasis rounded-pill align-self-start px-3 py-2 mb-2">
+        <i class="bi bi-person me-1"></i><%= book.author %>
+      </span>
+      <h5 class="card-title fw-semibold text-body-emphasis">
+        <%= book.title %>
+      </h5>
+      <p class="card-text text-body-secondary small flex-grow-1">
+        <%= (book.resume && book.resume.length > 120) ? book.resume.slice(0, 120) + '…' : book.resume %>
+      </p>
+      <div class="d-grid">
+        <button class="btn btn-success rounded-pill">
+          <i class="bi bi-book me-1"></i>Ler agora
+        </button>
+      </div>
+    </div>
+  </article>
+</div>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>Atividade — Arquitetura MVC · Biblioteca Virtual</title>
+<style>
+  :root{--green:#1a7f5a;--green-dark:#125a40;--green-soft:#e7f3ec;--green-border:#cfe6da;
+         --beige:#f6f1e7;--beige-border:#e8dfc9;--ink:#1f2933;--muted:#5a6b7b;--line:#d9e2e8}
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:16mm 14mm 16mm 14mm}
+  body{font-family:"DejaVu Sans","Segoe UI",sans-serif;color:var(--ink);font-size:10.5pt;line-height:1.55;margin:0}
+  h1{font-size:20pt;color:var(--green-dark);margin:14pt 0 4pt}
+  h2{font-size:14.5pt;margin:16pt 0 4pt}
+  h3{font-size:12pt;color:var(--green-dark);margin:12pt 0 3pt}
+  h4,h5{font-size:11pt;margin:8pt 0 2pt}
+  p{margin:6pt 0}
+  .titlebanner{background:var(--green);color:#fff;border-radius:8pt;padding:18pt 20pt;margin-bottom:14pt}
+  .titlebanner h1{color:#fff;margin:0;font-size:24pt}
+  .titlebanner p{margin:4pt 0 0;color:#d9f0e7;font-size:10pt}
+  .meta{background:var(--beige);border:1pt solid var(--beige-border);border-radius:8pt;padding:8pt 12pt;font-size:9.5pt;color:var(--muted);margin:8pt 0 16pt}
+  .meta b{color:var(--ink)}
+  table.docs{width:100%;border-collapse:collapse;font-size:9.5pt;margin:10pt 0}
+  table.docs th{background:var(--green-soft);color:var(--green-dark);text-align:left;padding:6pt 8pt;border:1pt solid var(--green-border)}
+  table.docs td{padding:6pt 8pt;border:1pt solid var(--line);vertical-align:top}
+  table.docs tr:nth-child(even) td{background:#fafbfc}
+  blockquote{background:var(--beige);border-left:4pt solid #cf9f2e;padding:8pt 12pt;border-radius:0 6pt 6pt 0;font-size:9.5pt;margin:10pt 0;color:#5a5a3a}
+  code{background:var(--green-soft);color:var(--green-dark);padding:0 4pt;border-radius:3pt;font-size:9pt;font-family:"DejaVu Sans Mono",monospace}
+  ul,ol{margin:6pt 0;padding-left:20pt}
+  li{margin:3pt 0}
+  hr{border:none;border-top:1pt solid var(--line);margin:14pt 0;page-break-after:always}
+  a{color:var(--green)}
+  .footer-note{margin-top:20pt;padding-top:8pt;border-top:1pt solid var(--line);font-size:8pt;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="titlebanner">
+  <h1>ATIVIDADE — ARQUITETURA DE SISTEMAS WEB</h1>
+  <p>Padrão MVC aplicado ao sistema “Biblioteca Virtual” — turma de Programação Web</p>
+</div>
+<h2>ATIVIDADE — ARQUITETURA DE SISTEMAS WEB</h2>
+<h3>Padrão MVC aplicado ao sistema "Biblioteca Virtual"</h3>
+<blockquote><strong>Disciplina:</strong> Programação Web / Sistemas Web &nbsp;|&nbsp; <strong>Turma:</strong> ________ &nbsp;|&nbsp; <strong>Valor:</strong> ____<br><strong>Prazo de entrega:</strong> ____________ &nbsp;|&nbsp; <strong>Modo</strong>: individual ou dupla (conforme combinado em aula)</blockquote>
+<hr>
+<h3>1. Contexto (Cenário Único)</h3>
+<p>Você foi contratado(a) como <strong>arquiteto(a) de software de uma consultoria</strong>. A escola precisa de um laudo técnico sobre a arquitetura do sistema que a turma desenvolveu ao longo do semestre: a <strong>Biblioteca Virtual</strong>.</p>
+<p>O sistema atual é um site web para gerenciamento de um acervo de livros, com <strong>listagem do catálogo</strong> e <strong>cadastro de novos títulos</strong> (título, autor, sinopse e capa). Ele foi construído com <strong>Node.js, Express, EJS, MySQL (via Knex) e Bootstrap</strong>.</p>
+<p><strong>Contexto e restrições:</strong></p>
+<ul><li>Servidor local/simples; poucos usuários simultâneos (secretaria e visitantes), acervo na casa das centenas de títulos.</li><li>Acesso <strong>somente pelo navegador</strong> (web responsiva) — sem aplicativo nativo.</li><li>Equipe pequena (2 desenvolvedores) e prazo curto; stack deve ser <strong>gratuita e open source</strong>.</li><li>Os dados hoje são públicos (catálogo), mas em breve serão necessários <strong>controle de acesso por perfis</strong> (aluno, funcionário, administrador) para empréstimos e gestão.</li><li><strong>Atenção à LGPD</strong>: futuramente haverá dados pessoais (usuários, empréstimos).</li></ul>
+<blockquote><strong>Importante:</strong> esta é uma atividade de <strong>análise e documentação</strong>, não de programação. Leia o código-fonte existente, mas <strong>não é necessário (nem permitido) alterá-lo</strong> para responder.</blockquote>
+<hr>
+<h3>2. Objetivo pedagógico — Foco na pesquisa sobre o padrão MVC</h3>
+<p>O coração desta atividade é a <strong>pesquisa sobre o padrão arquitetural MVC (Model-View-Controller)</strong>. Você deve:</p>
+<ol><li>Estudar o padrão a fundo (conceito, origem, camadas, prós, contras e quando usar);</li><li><strong>Aplicá-lo ao projeto real</strong> da Biblioteca Virtual, identificando onde cada camada vive no código;</li><li>Discutir as decisões técnicas do projeto e as alternativas descartadas — sempre justificando o <strong>porquê</strong>;</li><li>Comparar o modelo <strong>Tradicional</strong> (renderização no servidor) com o modelo <strong>REST</strong>, posicionando o projeto nessa comparação.</li></ol>
+<hr>
+<h3>3. Entregáveis</h3>
+<h4>Entregável 1 — Pesquisa sobre o padrão MVC</h4>
+<p>Redija um texto (com parágrafos próprios, <strong>não copy-paste</strong>) cobrindo:</p>
+<ul><li>O que é o padrão MVC e qual problema ele resolve;</li><li><strong>Origem/história</strong> e quem criou (pesquise: Trygve Reenskaug, Smalltalk-80, década de 1970/80);</li><li>O papel de <strong>cada camada</strong>: <em>Model</em>, <em>View</em> e <em>Controller</em>;</li><li>O <strong>fluxo de uma requisição</strong> no MVC (navegador → rota → controlador → modelo → banco → visão → navegador);</li><li><strong>Vantagens</strong> e <strong>desvantagens</strong> do MVC;</li><li><strong>Quando usar</strong> e <strong>quando não usar</strong> esse padrão;</li><li>Referências utilizadas (<strong>mínimo 3 fontes confiáveis</strong> — MDN, Refactoring Guru, Martin Fowler, documentação do Express, sites acadêmicos, etc.).</li></ul>
+<h4>Entregável 2 — Mapeamento do projeto no MVC</h4>
+<p>Preencha um quadro indicando, para cada camada, <strong>qual arquivo/pasta do projeto Biblioteca Virtual</strong> a representa e <strong>qual a sua função</strong>, com justificativa:</p>
+<table class="docs" style="font-size:9pt">
+<thead><tr><th>Camada</th><th>Arquivo(s) / pasta no projeto</th><th>Função</th><th>Justificativa</th></tr></thead>
+<tbody>
+<tr><td>View (Visão)</td><td><code>src/views/...</code></td><td>...</td><td>...</td></tr>
+<tr><td>Controller (Controle)</td><td><code>src/controllers/...</code></td><td>...</td><td>...</td></tr>
+<tr><td>Model (Modelo)</td><td><code>src/models/...</code></td><td>...</td><td>...</td></tr>
+<tr><td>Rotas (dispatcher)</td><td><code>src/routes/...</code></td><td>...</td><td>...</td></tr>
+<tr><td>Conexão/Base</td><td><code>src/config/...</code></td><td>...</td><td>...</td></tr>
+<tr><td>Ponto de entrada</td><td><code>index.js</code></td><td>...</td><td>...</td></tr>
+</tbody></table>
+<p>Depois, faça uma <strong>análise crítica</strong> respondendo:</p>
+<ul><li>O projeto <strong>segue bem</strong> o MVC? <em>Por quê?</em></li><li>Onde ele <strong>fura</strong> o padrão? (ex.: lógica "pesada" concentrada no controller, ausência de validação, URLs de capa fixas no código)</li><li>O que você faria de diferente para melhorar essa arquitetura?</li></ul>
+<h4>Entregável 3 — Diagrama geral da arquitetura</h4>
+<p>Crie um <strong>diagrama de camadas + fluxo</strong>: do navegador até o banco de dados, mostrando <strong>onde cada arquivo do projeto entra</strong> no caminho (ex.: <code>web.js</code> → <code>BookController.js</code> → <code>Book.js</code>/Knex → MySQL → <code>home.ejs</code>).</p>
+<p>Requisitos do diagrama:</p>
+<ul><li>Deve estar <strong>legível</strong> (sem cortes nem borrões no PDF);</li><li>Pode ser desenhado ou feito como código (diagrams.net, Excalidraw, Mermaid, PlantUML);</li><li>Identifique claramente: as camadas, a direção do fluxo e os arquivos envolvidos.</li></ul>
+<h4>Entregável 4 — Quadro de decisões técnicas</h4>
+<p>Preencha o quadro abaixo. Em <strong>toda linha</strong>, explique o motivo da escolha <strong>e por que a alternativa foi descartada</strong>.</p>
+<table class="docs" style="font-size:9pt">
+<thead><tr><th>Item</th><th>Escolha</th><th>Motivo</th><th>Alternativa descartada e por quê</th></tr></thead>
+<tbody>
+<tr><td>Padrão arquitetural</td><td>MVC (camadas Model-View-Controller)</td><td>...</td><td>Arquitetura "tudo numa página" (sem separação) ou em camadas sem MVC, e por quê</td></tr>
+<tr><td>Modelo de renderização</td><td>Tradicional (EJS no servidor)</td><td>...</td><td>SPA (React/Vue + API REST), e por quê</td></tr>
+<tr><td>Linguagem (back-end)</td><td>Node.js</td><td>...</td><td>PHP (Laravel), Python (Django/Flask), Java (Spring), e por quê</td></tr>
+<tr><td>Framework (back-end)</td><td>Express</td><td>...</td><td>Fastify, NestJS, ou outro, e por quê</td></tr>
+<tr><td>Front-end</td><td>Bootstrap + HTML/EJS (server-side)</td><td>...</td><td>Tailwind, CSS puro, frameworks JS, e por quê</td></tr>
+<tr><td>Banco de dados</td><td>MySQL</td><td>...</td><td>PostgreSQL, SQLite, MongoDB (NoSQL), e por quê</td></tr>
+<tr><td>Acesso a dados</td><td>Knex (query builder)</td><td>...</td><td>ORM completo (Sequelize/Prisma) ou SQL puro, e por quê</td></tr>
+<tr><td>Autenticação (futuro)</td><td><em>sua proposta</em></td><td>...</td><td><em>alternativa(s) descartada(s)</em></td></tr>
+<tr><td>Infraestrutura/deploy</td><td><em>sua proposta</em> (ex.: local + hospedagem gratuita)</td><td>...</td><td><em>alternativa(s) descartada(s)</em></td></tr>
+</tbody></table>
+<blockquote><em>Dica:</em> nos itens já implementados, baseie-se no código real; nos itens futuros (autenticação, deploy), proponha a melhor solução e justifique.</blockquote>
+<h4>Entregável 5 — Justificativas e trade-offs</h4>
+<p>Para <strong>cada decisão do quadro</strong> (Entregável 4), escreva em prosa:</p>
+<ol><li><strong>Vantagens</strong> da escolha;</li><li><strong>Desvantagens</strong> ou limitações;</li><li><strong>O que foi descartado</strong> e em que situação valeria a pena trocar de solução.</li></ol>
+<h4>Entregável 6 — Matriz comparativa Tradicional × REST</h4>
+<p>Complete a matriz abaixo e depois escreva a conclusão:</p>
+<table class="docs" style="font-size:9pt">
+<thead><tr><th>Critério</th><th>Modelo Tradicional (renderização no servidor)</th><th>Modelo REST (API + cliente)</th><th>O que o projeto usa</th></tr></thead>
+<tbody>
+<tr><td>Onde o HTML é gerado</td><td></td><td></td><td></td></tr>
+<tr><td>Comunicação cliente-servidor</td><td></td><td></td><td></td></tr>
+<tr><td>Separação front-end × back-end</td><td></td><td></td><td></td></tr>
+<tr><td>SEO / indexação</td><td></td><td></td><td></td></tr>
+<tr><td>Manutenção e complexidade</td><td></td><td></td><td></td></tr>
+<tr><td>Consumo por apps nativos</td><td></td><td></td><td></td></tr>
+<tr><td>Tempo até a primeira tela</td><td></td><td></td><td></td></tr>
+</tbody></table>
+<p><strong>Conclusão obrigatória (mín. 1 parágrafo):</strong> o projeto adota qual modelo? Por quê? Em que <strong>evolução futura</strong> (ex.: app móvel, multi-cliente) faria sentido migrar para o outro?</p>
+<h4>Entregável 7 — Conclusão e referências</h4>
+<ul><li><strong>Conclusão geral:</strong> o MVC foi uma boa escolha para a Biblioteca Virtual? O que você aprenderia com este laudo?</li><li><strong>Referências</strong> completas, caprichadas, das fontes consultadas (formato a ser combinado em aula).</li></ul>
+<hr>
+<h3>4. Formato de entrega (escolher UMA opção)</h3>
+<h4>Opção A — Relatório em PDF</h4>
+<ul><li><strong>Capa:</strong> nome(s), turma, disciplina, data e título;</li><li><strong>Sumário;</strong></li><li><strong>Entregáveis 1 a 7;</strong></li><li><strong>Conclusão</strong> e <strong>referências</strong>;</li><li>Diagramas <strong>legíveis</strong> (sem cortes ou borrões).</li></ul>
+<h4>Opção B — Apresentação em vídeo</h4>
+<ul><li><strong>Duração:</strong> 5 a 8 minutos;</li><li><strong>Roteiro sugerido:</strong></li></ul>
+<ol><li>Contexto do sistema Biblioteca Virtual — 1 min;</li><li>Pesquisa sobre MVC + mapeamento do projeto — 2 a 3 min;</li><li>Diagrama, decisões técnicas, trade-offs e matriz Tradicional × REST — 2 a 3 min;</li><li>Conclusão/trade-offs — 1 min.</li></ol>
+<ul><li>Pode ser gravação de tela com slides, ou diagramas desenhados e explicados;</li><li>Enviar como <strong>link</strong> (YouTube não listado, Google Drive ou OneDrive).</li></ul>
+<hr>
+<h3>5. Critérios de avaliação</h3>
+<table class="docs" style="font-size:9pt">
+<thead><tr><th>Critério</th><th>Peso</th></tr></thead>
+<tbody>
+<tr><td>Pesquisa sobre o MVC: profundidade, corretude e uso de referências</td><td>2,5</td></tr>
+<tr><td>Mapeamento do projeto no MVC + análise crítica</td><td>2,0</td></tr>
+<tr><td>Diagrama geral da arquitetura (legibilidade, camadas e fluxo)</td><td>1,5</td></tr>
+<tr><td>Quadro de decisões e trade-offs (coerência e justificativas reais)</td><td>2,0</td></tr>
+<tr><td>Matriz Tradicional × REST e conclusão</td><td>1,0</td></tr>
+<tr><td>Formatação do documento (capa, sumário, organização, referências)</td><td>1,0</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>10,0</strong></td></tr>
+</tbody></table>
+<hr>
+<h3>6. Ferramentas sugeridas</h3>
+<ul><li><strong>Diagramas:</strong> diagrams.net (draw.io), Excalidraw, Lucidchart, Whimsical, Figma, Canva;</li><li><strong>Diagramas como código:</strong> Mermaid, PlantUML;</li><li><strong>Documento/PDF:</strong> Google Docs, Word, Notion, Markdown + Pandoc, Canva;</li><li><strong>Vídeo (opção B):</strong> OBS Studio, Loom, Clipchamp, CapCut, DaVinci Resolve;</li><li><strong>Colaboração/versão:</strong> GitHub, GitLab, Google Drive.</li></ul>
+<hr>
+<h3>7. Referências iniciais para a pesquisa</h3>
+<ul><li>MDN Web Docs — <em>Understanding Client-Side JS Frameworks / MVC</em> ─ https://developer.mozilla.org</li><li>Refactoring Guru — <em>Model-View-Controller</em> ─ https://refactoring.guru</li><li>Martin Fowler — <em>Model-View-Controller</em> ─ https://martinfowler.com</li><li>Express (documentação oficial) ─ https://expressjs.com</li><li>Knex.js (documentação oficial) ─ https://knexjs.org</li><li>Roadmap.sh — backend / arquitetura ─ https://roadmap.sh</li></ul>
+<p><em>Busque também artigos acadêmicos e o clássico artigo original de Trygve Reenskaug sobre o MVC.</em></p>
+<div class="footer-note">Atividade adaptada do enunciado “Projeto de Arquitetura de Sistemas Web” · foco: pesquisa e aplicação do padrão MVC.</div>
+</body>
+</html>

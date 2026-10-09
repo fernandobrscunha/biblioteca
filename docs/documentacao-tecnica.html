@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentação Técnica — Biblioteca Virtual</title>
+<style>
+  :root {
+    --green: #1a7f5a;
+    --green-dark: #125a40;
+    --green-soft: #e7f3ec;
+    --green-border: #cfe6da;
+    --beige: #f6f1e7;
+    --beige-border: #e8dfc9;
+    --ink: #1f2933;
+    --muted: #5a6b7b;
+    --line: #d9e2e8;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  @page {
+    size: A4;
+    margin: 16mm 14mm 16mm 14mm;
+  }
+
+  body {
+    font-family: "DejaVu Sans", "Segoe UI", sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "DejaVu Sans", "Segoe UI", sans-serif;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  h1 { font-size: 22pt; }
+  h2 { font-size: 15pt; margin-top: 4pt; }
+  h3 { font-size: 12pt; color: var(--green-dark); }
+  h4 { font-size: 11pt; }
+
+  p { margin: 6pt 0; }
+
+  /* ---------- Capa ---------- */
+  .cover { padding-top: 40pt; }
+  .cover .rule {
+    width: 100%; height: 14pt; background: var(--green); border-radius: 6pt;
+  }
+  .cover .kicker {
+    letter-spacing: 2pt; text-transform: uppercase; color: var(--green);
+    font-weight: 700; font-size: 10pt; margin-top: 30pt;
+  }
+  .cover h1 { font-size: 30pt; margin: 4pt 0 2pt; }
+  .cover .subtitle { font-size: 14pt; color: var(--muted); }
+  .cover .meta {
+    margin-top: 42pt; width: 70%;
+    border-collapse: collapse; font-size: 10pt;
+  }
+  .cover .meta td { padding: 8pt 10pt; border-bottom: 1pt solid var(--line); }
+  .cover .meta td:first-child { color: var(--muted); width: 38%; }
+  .cover .version-tag {
+    display: inline-block; background: var(--green-soft); color: var(--green-dark);
+    border: 1pt solid var(--green-border); border-radius: 999pt; padding: 2pt 10pt;
+    font-size: 9pt; font-weight: 700;
+  }
+
+  /* ---------- Sumário ---------- */
+  .toc {
+    background: var(--beige); border: 1pt solid var(--beige-border);
+    border-radius: 8pt; padding: 14pt 18pt;
+  }
+  .toc h2 { margin-top: 0; }
+  .toc ol { margin: 0; padding-left: 18pt; }
+  .toc li { margin: 3pt 0; }
+  .toc a { color: var(--ink); text-decoration: none; }
+
+  /* ---------- Estrutura das seções ---------- */
+  .section-label {
+    display: inline-block; background: var(--green); color: #fff;
+    border-radius: 4pt; padding: 1pt 8pt; font-size: 9pt; font-weight: 700;
+    letter-spacing: 1pt;
+  }
+  section { margin-top: 14pt; }
+  .page-break { page-break-before: always; }
+  .avoid { page-break-inside: avoid; }
+
+  figure {
+    margin: 12pt 0;
+    border: 1pt solid var(--line); border-radius: 8pt; padding: 10pt;
+    background: #fbfcfd;
+    page-break-inside: avoid;
+  }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption {
+    font-size: 9pt; color: var(--muted); margin-top: 8pt;
+    border-top: 1pt dashed var(--line); padding-top: 6pt;
+  }
+  .fig-num { color: var(--green); font-weight: 700; }
+
+  table.docs {
+    width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 8pt 0;
+  }
+  table.docs th {
+    background: var(--green-soft); color: var(--green-dark); text-align: left;
+    padding: 6pt 8pt; border: 1pt solid var(--green-border);
+  }
+  table.docs td {
+    padding: 6pt 8pt; border: 1pt solid var(--line); vertical-align: top;
+  }
+  table.docs tr:nth-child(even) td { background: #fafbfc; }
+
+  code, pre {
+    font-family: "DejaVu Sans Mono", monospace;
+  }
+  code { background: var(--green-soft); color: var(--green-dark); padding: 0 4pt; border-radius: 3pt; font-size: 9pt; }
+  pre {
+    background: #1f2933; color: #e8eef2; border-radius: 8pt; padding: 12pt 14pt;
+    font-size: 8.6pt; line-height: 1.5; overflow: hidden;
+  }
+  pre .dim { color: #8aa0b4; }
+  pre .dir { color: #9fe8c4; font-weight: 700; }
+
+  .feature-grid { display: table; width: 100%; border-collapse: collapse; }
+  .feature-grid .cell { display: table-cell; width: 50%; padding: 0 8pt 8pt 0; }
+
+  .callout {
+    background: var(--beige); border-left: 4pt solid #cf9f2e;
+    padding: 8pt 12pt; border-radius: 0 6pt 6pt 0; font-size: 9.5pt; margin: 10pt 0;
+  }
+  .callout strong { color: #7a5a00; }
+
+  .footer-note {
+    margin-top: 24pt; padding-top: 8pt; border-top: 1pt solid var(--line);
+    font-size: 8pt; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= CAPA ================= -->
+<div class="cover">
+  <div class="rule"></div>
+  <div class="kicker">Biblioteca Virtual</div>
+  <h1>Documentação Técnica</h1>
+  <p class="subtitle">Projeto Web em Node.js, Express e MySQL</p>
+  <table class="meta">
+    <tr><td>Projeto</td><td><strong>Biblioteca Virtual</strong></td></tr>
+    <tr><td>Versão do documento</td><td>1.0 &nbsp;<span class="version-tag">estável</span></td></tr>
+    <tr><td>Data</td><td>18 de setembro de 2026</td></tr>
+    <tr><td>Stack principal</td><td>Node.js · Express · EJS · Bootstrap 5 · MySQL (Knex)</td></tr>
+    <tr><td>Servidor padrão</td><td><code>http://localhost:3000</code></td></tr>
+  </table>
+</div>
+
+<!-- ================= SUMÁRIO ================= -->
+<div class="page-break"></div>
+<div class="toc">
+  <h2>Sumário</h2>
+  <ol>
+    <li><a href="#sec1">Introdução e objetivos</a></li>
+    <li><a href="#sec2">Visão geral da arquitetura</a></li>
+    <li><a href="#sec3">Tecnologias e dependências</a></li>
+    <li><a href="#sec4">Estrutura de diretórios</a></li>
+    <li><a href="#sec5">Arquitetura em camadas (MVC)</a></li>
+    <li><a href="#sec6">Modelo de dados (banco de dados)</a></li>
+    <li><a href="#sec7">Fluxo de requisições</a></li>
+    <li><a href="#sec8">Rotas da aplicação</a></li>
+    <li><a href="#sec9">Camada de visão (templates EJS)</a></li>
+    <li><a href="#sec10">Fluxograma geral de uma requisição</a></li>
+    <li><a href="#sec11">Como executar o projeto</a></li>
+    <li><a href="#sec12">Pontos de evolução</a></li>
+  </ol>
+</div>
+
+<!-- ================= 1. INTRODUÇÃO ================= -->
+<section id="sec1">
+  <span class="section-label">Seção 1</span>
+  <h2>Introdução e objetivos</h2>
+  <p>
+    A <strong>Biblioteca Virtual</strong> é uma aplicação web para gerenciamento de livros.
+    A interface atual permite <em>listar</em> o acervo cadastrado e <em>cadastrar</em> novos
+    títulos, persistindo-os em um banco de dados MySQL. As páginas são servidas de forma
+    dinâmica pelo servidor (server-side rendering) usando o motor de templates EJS.
+  </p>
+  <p>Os objetivos principais desta documentação são:</p>
+  <ul>
+    <li>Descrever a arquitetura e o papel de cada módulo do sistema;</li>
+    <li>Documentar o modelo de dados e o ciclo de vida de uma requisição;</li>
+    <li>Servir de referência para manutenção e evolução do código.</li>
+  </ul>
+  <h4>Funcionalidades atualmente implementadas</h4>
+  <table class="docs">
+    <tr><th>#</th><th>Funcionalidade</th><th>Rota</th><th>Situação</th></tr>
+    <tr><td>1</td><td>Listar todos os livros (tela inicial)</td><td><code>GET /</code></td><td>Implementado</td></tr>
+    <tr><td>2</td><td>Exibir formulário de cadastro</td><td><code>GET /books/new</code></td><td>Implementado</td></tr>
+    <tr><td>3</td><td>Cadastrar um novo livro</td><td><code>POST /books/new</code></td><td>Implementado</td></tr>
+    <tr><td>4</td><td>Exibir, editar e excluir livros</td><td>—</td><td>Previsto no roteiro (comentado em <code>web.js</code>)</td></tr>
+  </table>
+</section>
+
+<!-- ================= 2. VISÃO GERAL DA ARQUITETURA ================= -->
+<section id="sec2" class="page-break">
+  <span class="section-label">Seção 2</span>
+  <h2>Visão geral da arquitetura</h2>
+  <p>
+    O sistema segue o padrão <strong>cliente–servidor</strong>. O navegador faz requisições
+    HTTP ao servidor <em>Express</em>, que processa a solicitação nas camadas de roteamento,
+    controle e acesso a dados, e devolve páginas HTML renderizadas no servidor.
+    As folhas de estilo e os ícones são fornecidos pela CDN <em>jsDelivr</em> (Bootstrap 5.3.8
+    e Bootstrap Icons), sem arquivos CSS locais.
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 980 300" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+      <defs>
+        <marker id="arr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1a7f5a"/>
+        </marker>
+      </defs>
+
+      <!-- Grupo: aplicação Express -->
+      <rect x="340" y="20" width="330" height="240" rx="12" fill="#e7f3ec" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="505" y="46" text-anchor="middle" font-size="12" font-weight="bold" fill="#125a40">Aplicação Express (Node.js)</text>
+
+      <!-- Navegador -->
+      <rect x="20" y="60" width="210" height="120" rx="12" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.5"/>
+      <text x="125" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2933">Navegador / Cliente</text>
+      <text x="125" y="122" text-anchor="middle" font-size="9" fill="#5a6b7b">Solicita páginas e exibe</text>
+      <text x="125" y="135" text-anchor="middle" font-size="9" fill="#5a6b7b">o HTML responsivo</text>
+
+      <!-- MySQL -->
+      <rect x="800" y="60" width="160" height="120" rx="12" fill="#1a7f5a" stroke="#125a40" stroke-width="1.5"/>
+      <text x="880" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">MySQL</text>
+      <text x="880" y="126" text-anchor="middle" font-size="9" fill="#d9f0e7">banco <code>biblioteca</code></text>
+
+      <!-- Mini-pilha MVC dentro do grupo Express -->
+      <rect x="375" y="65" width="260" height="38" rx="6" fill="#ffffff" stroke="#cfe6da" stroke-width="1.2"/>
+      <text x="505" y="90" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">web.js — rotas</text>
+
+      <line x1="505" y1="103" x2="505" y2="118" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+      <rect x="375" y="118" width="260" height="38" rx="6" fill="#ffffff" stroke="#cfe6da" stroke-width="1.2"/>
+      <text x="505" y="143" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">BookController.js — controlador</text>
+
+      <line x1="505" y1="156" x2="505" y2="171" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+      <rect x="375" y="171" width="260" height="38" rx="6" fill="#ffffff" stroke="#cfe6da" stroke-width="1.2"/>
+      <text x="505" y="196" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">Book.js + db.js — modelo (Knex)</text>
+
+      <!-- Consulta SQL -->
+      <line x1="800" y1="140" x2="896" y2="140" stroke="#1a7f5a" stroke-width="2" marker-end="url(#arr1)"/>
+      <text x="848" y="130" text-anchor="middle" font-size="9.5" fill="#5a6b7b">SQL (SELECT / INSERT)</text>
+
+      <!-- Requisição HTTP -->
+      <line x1="230" y1="120" x2="336" y2="120" stroke="#1a7f5a" stroke-width="2" marker-end="url(#arr1)"/>
+      <text x="283" y="108" text-anchor="middle" font-size="9.5" fill="#5a6b7b">HTTP</text>
+
+      <!-- Recursos externos -->
+      <rect x="740" y="230" width="220" height="34" rx="6" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <text x="850" y="252" text-anchor="middle" font-size="8.5" fill="#5a6b7b">Recursos externos: Bootstrap 5.3.8 · Bootstrap Icons (CDN)</text>
+    </svg>
+    <figcaption><span class="fig-num">Figura 1</span> — Arquitetura geral do sistema (visão de containers).</figcaption>
+  </figure>
+
+  <p>
+    O fluxo completo de uma requisição típica: o navegador chama uma rota registrada em
+    <code>web.js</code>; o controlador orquestra a operação; o modelo <code>Book</code> executa
+    a consulta/gravação via <strong>Knex</strong> (query builder) no MySQL; por fim, o controlador
+    devolve a resposta (renderização de um template EJS ou mensagem de status).
+  </p>
+</section>
+
+<!-- ================= 3. TECNOLOGIAS ================= -->
+<section id="sec3" class="page-break">
+  <span class="section-label">Seção 3</span>
+  <h2>Tecnologias e dependências</h2>
+
+  <h3>3.1 Stack principal</h3>
+  <table class="docs">
+    <tr><th>Tecnologia</th><th>Papel no projeto</th></tr>
+    <tr><td><strong>Node.js</strong></td><td>Runtime JavaScript que executa o servidor.</td></tr>
+    <tr><td><strong>Express</strong> (v5)</td><td>Framework HTTP responsável por rotas, middleware e renderização.</td></tr>
+    <tr><td><strong>EJS</strong> (v6)</td><td>Motor de templates usado para gerar o HTML no servidor.</td></tr>
+    <tr><td><strong>Knex</strong> (v3)</td><td>Query builder que abstrai o SQL e gerencia a conexão.</td></tr>
+    <tr><td><strong>mysql2</strong> (v3)</td><td>Driver de comunicação com o MySQL.</td></tr>
+    <tr><td><strong>Bootstrap 5.3.8</strong></td><td>Design system via CDN (utilidades CSS e componentes JS).</td></tr>
+    <tr><td><strong>Bootstrap Icons</strong></td><td>Ícones vetoriais utilizados na interface.</td></tr>
+  </table>
+
+  <h3>3.2 Dependências do <code>package.json</code></h3>
+  <pre><span class="dir">dependencies</span>
+├── ejs      ^6.0.1
+├── express  ^5.2.1
+├── knex     ^3.3.0
+└── mysql2   ^3.23.3</pre>
+
+  <h3>3.3 Conexão com o banco</h3>
+  <p>
+    A conexão é criada em <code>src/config/db.js</code> através do Knex. Atualmente as
+    credenciais estão fixadas no código (recomenda-se migrá-las para variáveis de ambiente,
+    veja a <a href="#sec12">Seção 12</a>).
+  </p>
+  <pre>knex({
+  client: "mysql2",
+  connection: {
+    host: "localhost",
+    user: "admin",
+    password: "****",
+    database: "biblioteca"
+  }
+})</pre>
+</section>
+
+<!-- ================= 4. ESTRUTURA DE DIRETÓRIOS ================= -->
+<section id="sec4" class="page-break">
+  <span class="section-label">Seção 4</span>
+  <h2>Estrutura de diretórios</h2>
+  <p>Organização do repositório no padrão MVC:</p>
+  <pre><span class="dir">biblioteca/</span>
+├── index.js                      <span class="dim"># Ponto de entrada · configuração do Express e do EJS</span>
+├── package.json                  <span class="dim"># Metadados e dependências do projeto</span>
+├── readme.md                     <span class="dim"># Documentação de uso, instalação e configuração</span>
+|
+└── <span class="dir">src/</span>
+    ├── <span class="dir">config/</span>
+    │   └── db.js                 <span class="dim"># Conexão com o MySQL (Knex)</span>
+    ├── <span class="dir">controllers/</span>
+    │   └── BookController.js     <span class="dim"># index() → lista livros · store() → cadastra livro</span>
+    ├── <span class="dir">models/</span>
+    │   └── Book.js               <span class="dim"># all() → SELECT · save() → INSERT</span>
+    ├── <span class="dir">routes/</span>
+    │   └── web.js                <span class="dim"># Registro das rotas HTTP</span>
+    └── <span class="dir">views/</span>
+        ├── <span class="dir">components/</span>
+        │   └── card_book.ejs     <span class="dim"># Card individual de livro (dentro da grade)</span>
+        └── <span class="dir">pages/</span>
+            ├── home.ejs          <span class="dim"># Tela inicial · acervo e seções institucionais</span>
+            └── book_form.ejs     <span class="dim"># Formulário de cadastro de livro</span></pre>
+
+  <div class="callout">
+    <strong>Boas práticas observadas:</strong> a separação em <em>rotas → controlador → modelo → visão</em>
+    mantém as responsabilidades isoladas; o template de card é um componente reutilizável
+    (<code>card_book.ejs</code>) incluído pela página inicial.
+  </div>
+</section>
+
+<!-- ================= 5. MVC ================= -->
+<section id="sec5" class="page-break">
+  <span class="section-label">Seção 5</span>
+  <h2>Arquitetura em camadas (MVC)</h2>
+  <p>
+    Cada camada tem uma responsabilidade única e se comunica apenas com a camada imediatamente
+    subjacente, seguindo o padrão <em>Model-View-Controller</em>.
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 980 590" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1a7f5a"/>
+        </marker>
+      </defs>
+
+      <!-- View -->
+      <rect x="70" y="30" width="280" height="72" rx="10" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.5"/>
+      <text x="210" y="58" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2933">Visão (View)</text>
+      <text x="210" y="76" text-anchor="middle" font-size="9" fill="#5a6b7b">home.ejs · book_form.ejs</text>
+      <text x="210" y="90" text-anchor="middle" font-size="9" fill="#5a6b7b">components/card_book.ejs</text>
+
+      <line x1="210" y1="102" x2="210" y2="138" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arr2)"/>
+      <text x="225" y="124" font-size="9" fill="#5a6b7b">res.render('pages/…', dados)</text>
+
+      <!-- Rotas -->
+      <rect x="70" y="140" width="280" height="58" rx="10" fill="#e7f3ec" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="210" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#125a40">Rotas — web.js</text>
+      <text x="210" y="183" text-anchor="middle" font-size="9" fill="#5a6b7b">GET / · GET/POST /books/new</text>
+
+      <line x1="210" y1="198" x2="210" y2="234" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arr2)"/>
+      <text x="225" y="220" font-size="9" fill="#5a6b7b">BookController.index() / .store()</text>
+
+      <!-- Controller -->
+      <rect x="70" y="236" width="280" height="68" rx="10" fill="#ffffff" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="210" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2933">Controlador — BookController.js</text>
+      <text x="210" y="280" text-anchor="middle" font-size="9" fill="#5a6b7b">index()  ·  store()</text>
+
+      <line x1="210" y1="304" x2="210" y2="340" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arr2)"/>
+      <text x="225" y="326" font-size="9" fill="#5a6b7b">Book.all() · Book.save()</text>
+
+      <!-- Model -->
+      <rect x="70" y="342" width="280" height="62" rx="10" fill="#ffffff" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="210" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2933">Modelo — Book.js (+ db.js)</text>
+      <text x="210" y="385" text-anchor="middle" font-size="9" fill="#5a6b7b">all()  ·  save()  ·  Knex</text>
+
+      <line x1="210" y1="404" x2="210" y2="440" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arr2)"/>
+      <text x="225" y="426" font-size="9" fill="#5a6b7b">SQL (SELECT * / INSERT)</text>
+
+      <!-- Banco -->
+      <rect x="130" y="442" width="160" height="54" rx="10" fill="#1a7f5a" stroke="#125a40" stroke-width="1.5"/>
+      <text x="210" y="468" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">MySQL</text>
+      <text x="210" y="484" text-anchor="middle" font-size="9" fill="#d9f0e7">tabela: books</text>
+
+      <!-- Painel direito: responsabilidades -->
+      <rect x="420" y="42" width="540" height="470" rx="10" fill="#fbfcfd" stroke="#d9e2e8" stroke-width="1.2"/>
+      <text x="690" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#125a40">Responsabilidades por camada</text>
+
+      <text x="448" y="110" font-size="10" font-weight="bold" fill="#1f2933">✓ Rota (Route)</text>
+      <text x="448" y="128" font-size="9" fill="#5a6b7b">Registra os endpoints (URL → função) no Router do Express.</text>
+
+      <text x="448" y="168" font-size="10" font-weight="bold" fill="#1f2933">✓ Controlador (Controller)</text>
+      <text x="448" y="186" font-size="9" fill="#5a6b7b">Extrai parâmetros da requisição, chama o modelo e define a resposta.</text>
+
+      <text x="448" y="226" font-size="10" font-weight="bold" fill="#1f2933">✓ Modelo (Model)</text>
+      <text x="448" y="244" font-size="9" fill="#5a6b7b">Abstrai o acesso ao banco com o Knex e encapsula as regras de query.</text>
+
+      <text x="448" y="284" font-size="10" font-weight="bold" fill="#1f2933">✓ Visão (View)</text>
+      <text x="448" y="302" font-size="9" fill="#5a6b7b">Recebe os dados prontos e gera o HTML final (sem lógica de negócio).</text>
+
+      <text x="448" y="342" font-size="10" font-weight="bold" fill="#1f2933">✓ Config (db.js)</text>
+      <text x="448" y="360" font-size="9" fill="#5a6b7b">Centraliza credenciais e a instância de conexão fornecida ao modelo.</text>
+
+      <line x1="462" y1="382" x2="918" y2="382" stroke="#d9e2e8" stroke-width="1"/>
+      <text x="448" y="404" font-size="9.5" fill="#5a6b7b" font-style="italic">Total de responsáveis no fluxo:</text>
+      <text x="448" y="422" font-size="9.5" fill="#1f2933">1 servidor · 4 camadas · 1 banco de dados</text>
+      <text x="448" y="452" font-size="9" fill="#5a6b7b">Padrão assíncrono baseado em Promises (async/await).</text>
+    </svg>
+    <figcaption><span class="fig-num">Figura 2</span> — Camadas MVC, responsabilidades e fluxo de invocação.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 6. MODELO DE DADOS ================= -->
+<section id="sec6" class="page-break">
+  <span class="section-label">Seção 6</span>
+  <h2>Modelo de dados (banco de dados)</h2>
+  <p>
+    O banco contém uma única tabela, <code>books</code>. A coluna <code>cover</code> guarda a
+    URL da imagem de capa (atribuída automaticamente pelo controlador durante o cadastro).
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 980 360" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+      <!-- Tabela books -->
+      <rect x="80" y="30" width="520" height="300" rx="10" fill="#ffffff" stroke="#cfe6da" stroke-width="1.5"/>
+      <rect x="80" y="30" width="520" height="40" rx="10" fill="#1a7f5a"/>
+      <text x="340" y="56" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">books</text>
+
+      <!-- cabeçalho de colunas -->
+      <line x1="80" y1="88" x2="600" y2="88" stroke="#cfe6da" stroke-width="1.2"/>
+      <text x="100" y="110" font-size="10" font-weight="bold" fill="#125a40">Campo</text>
+      <text x="280" y="110" font-size="10" font-weight="bold" fill="#125a40">Tipo</text>
+      <text x="420" y="110" font-size="10" font-weight="bold" fill="#125a40">Observações</text>
+      <line x1="80" y1="118" x2="600" y2="118" stroke="#cfe6da" stroke-width="1.2"/>
+
+      <!-- linha 1 -->
+      <rect x="80" y="118" width="520" height="40" fill="#e7f3ec"/>
+      <text x="100" y="143" font-size="10" font-weight="bold" fill="#1f2933">ID</text>
+      <text x="280" y="143" font-size="10" fill="#1f2933">BIGINT UNSIGNED</text>
+      <text x="420" y="143" font-size="10" fill="#5a6b7b">PK · AUTO_INCREMENT</text>
+      <line x1="80" y1="158" x2="600" y2="158" stroke="#cfe6da" stroke-width="1.2"/>
+
+      <!-- linha 2 -->
+      <text x="100" y="183" font-size="10" font-weight="bold" fill="#1f2933">title</text>
+      <text x="280" y="183" font-size="10" fill="#1f2933">VARCHAR(100)</text>
+      <text x="420" y="183" font-size="10" fill="#5a6b7b">NOT NULL</text>
+      <line x1="80" y1="198" x2="600" y2="198" stroke="#cfe6da" stroke-width="1.2"/>
+
+      <!-- linha 3 -->
+      <rect x="80" y="198" width="520" height="40" fill="#f6f1e7"/>
+      <text x="100" y="223" font-size="10" font-weight="bold" fill="#1f2933">author</text>
+      <text x="280" y="223" font-size="10" fill="#1f2933">VARCHAR(100)</text>
+      <text x="420" y="223" font-size="10" fill="#5a6b7b">NOT NULL</text>
+      <line x1="80" y1="238" x2="600" y2="238" stroke="#cfe6da" stroke-width="1.2"/>
+
+      <!-- linha 4 -->
+      <text x="100" y="263" font-size="10" font-weight="bold" fill="#1f2933">resume</text>
+      <text x="280" y="263" font-size="10" fill="#1f2933">TEXT</text>
+      <text x="420" y="263" font-size="10" fill="#5a6b7b">Sinopse · NOT NULL</text>
+      <line x1="80" y1="278" x2="600" y2="278" stroke="#cfe6da" stroke-width="1.2"/>
+
+      <!-- linha 5 -->
+      <rect x="80" y="278" width="520" height="52" fill="#e7f3ec"/>
+      <text x="100" y="303" font-size="10" font-weight="bold" fill="#1f2933">cover</text>
+      <text x="280" y="303" font-size="10" fill="#1f2933">VARCHAR(255)</text>
+      <text x="420" y="303" font-size="10" fill="#5a6b7b">URL da capa · preenchida pelo controller</text>
+
+      <!-- Card lateral -->
+      <rect x="660" y="60" width="280" height="210" rx="10" fill="#fbfcfd" stroke="#d9e2e8" stroke-width="1.2"/>
+      <text x="800" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#125a40">Características</text>
+      <text x="688" y="122" font-size="9.5" fill="#1f2933">•  Título único por registro</text>
+      <text x="688" y="146" font-size="9.5" fill="#1f2933">•  Ordenação: title (A → Z)</text>
+      <text x="688" y="170" font-size="9.5" fill="#1f2933">•  Modelo: somente leitura/inserção</text>
+      <text x="688" y="194" font-size="9.5" fill="#1f2933">•  Sem relacionamentos (1 tabela)</text>
+      <text x="688" y="218" font-size="9.5" fill="#1f2933">•  Acesso via Knex (query builder)</text>
+    </svg>
+    <figcaption><span class="fig-num">Figura 3</span> — Modelo entidade-relacionamento da tabela <code>books</code>.</figcaption>
+  </figure>
+
+  <h3>DDL de referência</h3>
+  <pre>CREATE DATABASE biblioteca;
+USE biblioteca;
+
+CREATE TABLE books (
+    ID    BIGINT UNSIGNED AUTO_INCREMENT,
+    title VARCHAR(100)  NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    resume TEXT          NOT NULL,
+    cover VARCHAR(255)   NULL,
+    PRIMARY KEY(ID)
+);</pre>
+
+  <div class="callout">
+    <strong>Atenção:</strong> o comando acima considera a coluna <code>cover</code>. Se a base
+    existente foi criada apenas com o <code>readme.md</code> (sem <code>cover</code>), adicione-a
+    com <code>ALTER TABLE books ADD COLUMN cover VARCHAR(255) NULL;</code> para que o cadastro não falhe.
+  </div>
+</section>
+
+<!-- ================= 7. FLUXO DE REQUISIÇÕES ================= -->
+<section id="sec7" class="page-break">
+  <span class="section-label">Seção 7</span>
+  <h2>Fluxo de requisições</h2>
+
+  <h3>7.1 Listar livros — <code>GET /</code></h3>
+  <figure>
+    <svg viewBox="0 0 980 620" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+      <defs>
+        <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1a7f5a"/>
+        </marker>
+      </defs>
+
+      <!-- participantes -->
+      <g font-size="10" font-weight="bold" text-anchor="middle">
+        <rect x="10" y="20" width="90" height="34" rx="8" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.4"/>
+        <text x="55" y="38" font-size="8.6" fill="#1f2933">Navegador</text>
+        <rect x="170" y="20" width="110" height="34" rx="8" fill="#e7f3ec" stroke="#cfe6da" stroke-width="1.4"/>
+        <text x="225" y="38" font-size="8.6" fill="#125a40">Express + web.js</text>
+        <rect x="340" y="20" width="118" height="34" rx="8" fill="#ffffff" stroke="#cfe6da" stroke-width="1.4"/>
+        <text x="399" y="38" font-size="8.6" fill="#1f2933">BookController</text>
+        <rect x="520" y="20" width="112" height="34" rx="8" fill="#ffffff" stroke="#cfe6da" stroke-width="1.4"/>
+        <text x="576" y="38" font-size="8.6" fill="#1f2933">Book.js (Knex)</text>
+        <rect x="770" y="20" width="100" height="34" rx="8" fill="#1a7f5a" stroke="#125a40" stroke-width="1.4"/>
+        <text x="820" y="38" fill="#ffffff">MySQL</text>
+      </g>
+
+      <!-- lifelines -->
+      <line x1="55" y1="54" x2="55" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="225" y1="54" x2="225" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="399" y1="54" x2="399" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="576" y1="54" x2="576" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="820" y1="54" x2="820" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+
+      <!-- 1 -->
+      <rect x="10" y="96" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="107" font-size="9" font-weight="bold" fill="#ffffff">1</text>
+      <line x1="55" y1="108" x2="221" y2="108" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="70" y="100" font-size="9" fill="#1f2933">GET /</text>
+
+      <!-- 2 -->
+      <line x1="225" y1="140" x2="395" y2="140" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="235" y="132" font-size="9" fill="#1f2933">BookController.index(req, res)</text>
+
+      <!-- 3 -->
+      <rect x="10" y="170" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="181" font-size="9" font-weight="bold" fill="#ffffff">2</text>
+      <line x1="399" y1="182" x2="572" y2="182" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="409" y="174" font-size="9" fill="#1f2933">await Book.all()</text>
+
+      <!-- 4 -->
+      <rect x="10" y="212" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="223" font-size="9" font-weight="bold" fill="#ffffff">3</text>
+      <line x1="576" y1="230" x2="816" y2="230" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="586" y="222" font-size="9" fill="#1f2933">SELECT * FROM books ORDER BY title ASC</text>
+
+      <!-- 5 -->
+      <line x1="820" y1="270" x2="580" y2="270" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="590" y="262" font-size="9" fill="#1f2933">registros da tabela books</text>
+
+      <!-- 6 -->
+      <line x1="576" y1="310" x2="403" y2="310" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="413" y="302" font-size="9" fill="#1f2933">lista de livros ({title, author, resume, cover})</text>
+
+      <!-- 7 -->
+      <rect x="10" y="340" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="351" font-size="9" font-weight="bold" fill="#ffffff">4</text>
+      <line x1="399" y1="380" x2="59" y2="380" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="120" y="360" font-size="9" fill="#1f2933">res.render('pages/home', { books })</text>
+      <text x="120" y="396" font-size="8.5" fill="#5a6b7b">▸ home.ejs renderiza cada livro através de</text>
+      <text x="120" y="409" font-size="8.5" fill="#5a6b7b">  components/card_book.ejs</text>
+
+      <!-- nota -->
+      <rect x="660" y="500" width="300" height="76" rx="8" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.2"/>
+      <text x="810" y="524" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#7a5a00">Observações</text>
+      <text x="676" y="544" font-size="8.6" fill="#5a6b7b">• index() é async; usa await Book.all()</text>
+      <text x="676" y="560" font-size="8.6" fill="#5a6b7b">• Erro no modelo retorna objeto {type:'error'}</text>
+    </svg>
+    <figcaption><span class="fig-num">Figura 4</span> — Diagrama de sequência: listar o acervo (<code>GET /</code>).</figcaption>
+  </figure>
+
+  <h3>7.2 Cadastrar livro — <code>POST /books/new</code></h3>
+  <figure>
+    <svg viewBox="0 0 980 620" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+      <defs>
+        <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1a7f5a"/>
+        </marker>
+      </defs>
+
+      <g font-size="10" font-weight="bold" text-anchor="middle">
+        <rect x="10" y="20" width="90" height="34" rx="8" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.4"/>
+        <text x="55" y="38" font-size="8.6" fill="#1f2933">Navegador</text>
+        <rect x="170" y="20" width="110" height="34" rx="8" fill="#e7f3ec" stroke="#cfe6da" stroke-width="1.4"/>
+        <text x="225" y="38" font-size="8.6" fill="#125a40">Express + web.js</text>
+        <rect x="340" y="20" width="118" height="34" rx="8" fill="#ffffff" stroke="#cfe6da" stroke-width="1.4"/>
+        <text x="399" y="38" font-size="8.6" fill="#1f2933">BookController</text>
+        <rect x="520" y="20" width="112" height="34" rx="8" fill="#ffffff" stroke="#cfe6da" stroke-width="1.4"/>
+        <text x="576" y="38" font-size="8.6" fill="#1f2933">Book.js (Knex)</text>
+        <rect x="770" y="20" width="100" height="34" rx="8" fill="#1a7f5a" stroke="#125a40" stroke-width="1.4"/>
+        <text x="820" y="38" fill="#ffffff">MySQL</text>
+      </g>
+
+      <line x1="55" y1="54" x2="55" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="225" y1="54" x2="225" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="399" y1="54" x2="399" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="576" y1="54" x2="576" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="820" y1="54" x2="820" y2="600" stroke="#c8d3dc" stroke-width="1" stroke-dasharray="5 4"/>
+
+      <!-- 1 -->
+      <rect x="10" y="96" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="107" font-size="9" font-weight="bold" fill="#ffffff">1</text>
+      <line x1="55" y1="108" x2="221" y2="108" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="70" y="100" font-size="9" fill="#1f2933">POST /books/new (form-urlencoded)</text>
+      <text x="70" y="124" font-size="8.5" fill="#5a6b7b">▸ middleware: express.urlencoded({ extended: true })</text>
+
+      <!-- 2 -->
+      <rect x="10" y="150" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="161" font-size="9" font-weight="bold" fill="#ffffff">2</text>
+      <line x1="225" y1="162" x2="395" y2="162" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="235" y="154" font-size="9" fill="#1f2933">BookController.store(req, res)</text>
+
+      <!-- 3 -->
+      <rect x="10" y="198" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="209" font-size="9" font-weight="bold" fill="#ffffff">3</text>
+      <line x1="399" y1="210" x2="572" y2="210" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="409" y="202" font-size="9" fill="#1f2933">Book.save({ title, author, resume, cover })</text>
+
+      <!-- 4 -->
+      <rect x="10" y="246" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="257" font-size="9" font-weight="bold" fill="#ffffff">4</text>
+      <line x1="576" y1="270" x2="816" y2="270" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="586" y="262" font-size="9" fill="#1f2933">INSERT INTO books (title, author, resume, cover)</text>
+      <text x="586" y="286" font-size="9" fill="#1f2933">VALUES (?, ?, ?, ?)</text>
+
+      <!-- 5 -->
+      <line x1="820" y1="320" x2="580" y2="320" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="590" y="312" font-size="9" fill="#1f2933">resultado da inserção (OK / falha)</text>
+
+      <!-- 6 -->
+      <rect x="10" y="350" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="361" font-size="9" font-weight="bold" fill="#ffffff">5</text>
+      <line x1="576" y1="382" x2="403" y2="382" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="413" y="366" font-size="9" fill="#1f2933">{ type: 'success', msg: 'Livro inserido com sucesso!' }</text>
+      <text x="413" y="392" font-size="9" fill="#1f2933">ou { type: 'error', msg: '…' }</text>
+
+      <!-- 7 -->
+      <rect x="10" y="430" width="16" height="16" rx="4" fill="#1a7f5a"/>
+      <text x="18" y="441" font-size="9" font-weight="bold" fill="#ffffff">6</text>
+      <line x1="399" y1="470" x2="59" y2="470" stroke="#1a7f5a" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <text x="120" y="460" font-size="9" fill="#1f2933">res.send(msg) → resposta de status</text>
+
+      <!-- nota -->
+      <rect x="660" y="430" width="300" height="100" rx="8" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.2"/>
+      <text x="810" y="454" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#7a5a00">Observações</text>
+      <text x="676" y="474" font-size="8.6" fill="#5a6b7b">• A capa (cover) usa uma URL fixa definida</text>
+      <text x="676" y="489" font-size="8.6" fill="#5a6b7b">  no controlador.</text>
+      <text x="676" y="508" font-size="8.6" fill="#5a6b7b">• store() salva após validar os campos do form.</text>
+    </svg>
+    <figcaption><span class="fig-num">Figura 5</span> — Diagrama de sequência: cadastrar um livro (<code>POST /books/new</code>).</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 8. ROTAS ================= -->
+<section id="sec8" class="page-break">
+  <span class="section-label">Seção 8</span>
+  <h2>Rotas da aplicação</h2>
+  <p>Rotas registradas em <code>src/routes/web.js</code>:</p>
+  <table class="docs">
+    <tr><th>Método</th><th>Rota</th><th>Função / Tratamento</th><th>Descrição</th></tr>
+    <tr><td><code>GET</code></td><td><code>/</code></td><td><code>BookController.index</code></td><td>Consulta todos os livros e renderiza <code>home.ejs</code>.</td></tr>
+    <tr><td><code>GET</code></td><td><code>/books/new</code></td><td><em>inline</em> (<code>res.render</code>)</td><td>Exibe o formulário de cadastro (<code>book_form.ejs</code>).</td></tr>
+    <tr><td><code>POST</code></td><td><code>/books/new</code></td><td><code>BookController.store</code></td><td>Insere o livro no banco e responde com o status.</td></tr>
+  </table>
+
+  <h3>Rotas previstas no roteiro</h3>
+  <p>Os comentários de <code>web.js</code> indicam as próximas rotas do CRUD:</p>
+  <table class="docs">
+    <tr><th>Método</th><th>Rota</th><th>Descrição</th></tr>
+    <tr><td><code>GET</code></td><td><code>/books/:id</code></td><td>Exibir os detalhes de um livro.</td></tr>
+    <tr><td><code>POST</code></td><td><code>/books/edit/:id</code></td><td>Atualizar os dados de um livro.</td></tr>
+    <tr><td><code>POST</code></td><td><code>/books/delete/:id</code></td><td>Excluir um livro.</td></tr>
+  </table>
+</section>
+
+<!-- ================= 9. VISÃO ================= -->
+<section id="sec9" class="page-break">
+  <span class="section-label">Seção 9</span>
+  <h2>Camada de visão (templates EJS)</h2>
+  <table class="docs">
+    <tr><th>Template</th><th>Rota</th><th>Conteúdo</th><th>Dados recebidos</th></tr>
+    <tr><td><code>pages/home.ejs</code></td><td><code>GET /</code></td><td>Navbar · hero · seções institucionais (bento grid) · grade de livros · newsletter · rodapé</td><td><code>{ books }</code></td></tr>
+    <tr><td><code>pages/book_form.ejs</code></td><td><code>GET /books/new</code></td><td>Navbar · formulário de cadastro (título, autor, sinopse) · rodapé</td><td>—</td></tr>
+    <tr><td><code>components/card_book.ejs</code></td><td>incluído por <code>home.ejs</code></td><td>Card de livro: capa, autor, título, sinopse e botão de leitura</td><td><code>{ book }</code></td></tr>
+  </table>
+
+  <h3>Decisões de interface</h3>
+  <ul>
+    <li><strong>Bootstrap 5.3.8</strong> como design system, consumido via CDN;</li>
+    <li>Tema <strong>flat e minimalista</strong>, em tons pastéis (verde + bege), transmitindo confiança sem peso visual;</li>
+    <li>Tipografia grande (<code>display-*</code>), cantos arredondados (<code>rounded-*</code>),
+        sombras suaves (<code>shadow-sm</code>) e botões pill (<code>rounded-pill</code>);</li>
+    <li>Grade responsiva: cards adaptam-se de <em>4 colunas</em> (desktop) a <em>1 coluna</em> (celular).</li>
+  </ul>
+</section>
+
+<!-- ================= 10. FLUXOGRAMA GERAL ================= -->
+<section id="sec10" class="page-break">
+  <span class="section-label">Seção 10</span>
+  <h2>Fluxograma geral de uma requisição</h2>
+  <p>Visão consolidada do caminho percorrido por qualquer requisição:</p>
+
+  <figure>
+    <svg viewBox="0 0 980 360" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+      <defs>
+        <marker id="arrF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1a7f5a"/>
+        </marker>
+      </defs>
+
+      <!-- A -->
+      <rect x="20" y="55" width="160" height="52" rx="10" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.5"/>
+      <text x="100" y="76" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">Requisição HTTP</text>
+      <text x="100" y="92" text-anchor="middle" font-size="8.5" fill="#5a6b7b">do navegador</text>
+
+      <line x1="180" y1="81" x2="292" y2="81" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arrF)"/>
+
+      <!-- Decisão -->
+      <polygon points="400,45 455,81 400,117 345,81" fill="#eafff5" stroke="#1a7f5a" stroke-width="1.6"/>
+      <text x="400" y="76" text-anchor="middle" font-size="8.6" font-weight="bold" fill="#125a40" transform="rotate(-2 400 81)">Rota definida</text>
+      <text x="400" y="92" text-anchor="middle" font-size="9" font-weight="bold" fill="#125a40">em web.js?</text>
+
+      <!-- sim -->
+      <line x1="455" y1="81" x2="560" y2="81" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arrF)"/>
+      <text x="502" y="72" font-size="9" font-weight="bold" fill="#1a7f5a">sim</text>
+
+      <!-- C -->
+      <rect x="562" y="55" width="170" height="52" rx="10" fill="#ffffff" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="647" y="76" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">Controlador</text>
+      <text x="647" y="92" text-anchor="middle" font-size="8.5" fill="#5a6b7b">BookController.index() / store()</text>
+
+      <line x1="732" y1="81" x2="800" y2="81" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arrF)"/>
+
+      <!-- D -->
+      <rect x="800" y="55" width="160" height="52" rx="10" fill="#ffffff" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="880" y="76" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">Modelo</text>
+      <text x="880" y="92" text-anchor="middle" font-size="8.5" fill="#5a6b7b">Book.all() · Book.save()</text>
+
+      <!-- D -> Banco (vertical) -->
+      <line x1="880" y1="107" x2="880" y2="178" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arrF)"/>
+
+      <!-- E -->
+      <rect x="800" y="180" width="160" height="52" rx="10" fill="#1a7f5a" stroke="#125a40" stroke-width="1.5"/>
+      <text x="880" y="201" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">MySQL</text>
+      <text x="880" y="217" text-anchor="middle" font-size="8.5" fill="#d9f0e7">tabela books</text>
+
+      <!-- E -> F -->
+      <path d="M 800 206 L 700 206 L 700 276 L 660 276" fill="none" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arrF)"/>
+
+      <!-- F -->
+      <rect x="440" y="276" width="220" height="52" rx="10" fill="#e7f3ec" stroke="#cfe6da" stroke-width="1.5"/>
+      <text x="550" y="297" text-anchor="middle" font-size="10" font-weight="bold" fill="#125a40">Resposta</text>
+      <text x="550" y="313" text-anchor="middle" font-size="8.5" fill="#5a6b7b">res.render('pages/…') · res.send(msg)</text>
+
+      <!-- F -> G -->
+      <line x1="440" y1="302" x2="250" y2="302" stroke="#1a7f5a" stroke-width="1.6" marker-end="url(#arrF)"/>
+      <text x="345" y="293" font-size="9" fill="#1f2933">HTML / mensagem</text>
+
+      <!-- G -->
+      <rect x="70" y="276" width="180" height="52" rx="10" fill="#f6f1e7" stroke="#e8dfc9" stroke-width="1.5"/>
+      <text x="160" y="297" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f2933">Cliente</text>
+      <text x="160" y="313" text-anchor="middle" font-size="8.5" fill="#5a6b7b">exibe a página / status</text>
+
+      <!-- não -->
+      <path d="M 400 117 L 400 160 L 300 160 L 300 276" fill="none" stroke="#b23b3b" stroke-width="1.6" marker-end="url(#arrH)"/>
+      <text x="412" y="150" font-size="9" font-weight="bold" fill="#b23b3b">não</text>
+
+      <!-- H -->
+      <rect x="70" y="180" width="180" height="52" rx="10" fill="#f7e6e6" stroke="#ecc7c7" stroke-width="1.5"/>
+      <text x="160" y="201" text-anchor="middle" font-size="10" font-weight="bold" fill="#a03030">HTTP 404</text>
+      <text x="160" y="217" text-anchor="middle" font-size="8.5" fill="#8a4a4a">página não encontrada</text>
+
+      <defs>
+        <marker id="arrH" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#b23b3b"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption><span class="fig-num">Figura 6</span> — Fluxograma de processamento de uma requisição HTTP.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 11. COMO EXECUTAR ================= -->
+<section id="sec11" class="page-break">
+  <span class="section-label">Seção 11</span>
+  <h2>Como executar o projeto</h2>
+  <ol>
+    <li>Instalar as dependências: <code>npm install</code></li>
+    <li>Garantir o MySQL em execução e o banco <code>biblioteca</code> criado (ver <a href="#sec6">Seção 6</a>);</li>
+    <li>Conferir as credenciais em <code>src/config/db.js</code>;</li>
+    <li>Iniciar o servidor: <code>node index.js</code></li>
+    <li>Acessar <code>http://localhost:3000</code>.</li>
+  </ol>
+  <pre>node index.js
+# Rodando em: http://localhost:3000</pre>
+</section>
+
+<!-- ================= 12. EVOLUÇÃO ================= -->
+<section id="sec12">
+  <span class="section-label">Seção 12</span>
+  <h2>Pontos de evolução</h2>
+  <table class="docs">
+    <tr><th>Item</th><th>Sugestão</th><th>Impacto</th></tr>
+    <tr><td>Credenciais do banco</td><td>Migrar para variáveis de ambiente (<code>.env</code>)</td><td>Segurança e portabilidade</td></tr>
+    <tr><td>CRUD completo</td><td>Implementar rotas de exibir / editar / excluir já comentadas em <code>web.js</code></td><td>Completude funcional</td></tr>
+    <tr><td>Validação</td><td>Validar e sanitizar os campos no servidor (título/autor obrigatórios; limites de tamanho)</td><td>Integridade dos dados</td></tr>
+    <tr><td>Upload de capa</td><td>Salvar imagens de capa localmente ou em storage, em vez de URL fixa</td><td>Experiência de uso</td></tr>
+    <tr><td>Busca e paginação</td><td>Adicionar <code>?q=</code> e paginação na listagem</td><td>Escalabilidade da listagem</td></tr>
+    <tr><td>Testes</td><td>Incluir testes automatizados (unitários com Jest/Vitest; integração via Supertest)</td><td>Confiabilidade</td></tr>
+  </table>
+
+  <div class="footer-note">
+    Documentação técnica — Biblioteca Virtual · elaborada em 18/09/2026 · gerada a partir da análise do código-fonte.
+  </div>
+</section>
+
+</body>
+</html>

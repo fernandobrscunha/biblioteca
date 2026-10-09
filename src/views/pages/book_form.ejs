@@ -3,59 +3,117 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <meta name="description" content="Cadastre um novo livro na Biblioteca Virtual.">
+    <title>Biblioteca Virtual — Novo Livro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
-  <body>
-    <div class="container">
+  <body class="d-flex flex-column min-vh-100 bg-body text-body">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top bg-white border-bottom border-success-subtle">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-body-emphasis" href="/">
+          <span class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-3 p-2">
+            <i class="bi bi-book-half"></i>
+          </span>
+          Biblioteca<span class="text-success">Virtual</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navForm" aria-controls="navForm" aria-expanded="false" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navForm">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link link-body-emphasis" href="/"><i class="bi bi-house-door me-1"></i>Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-body-emphasis" href="/#acervo"><i class="bi bi-collection me-1"></i>Acervo</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="btn btn-success btn-sm rounded-pill px-3 active" aria-current="page" href="/books/new">
+                <i class="bi bi-plus-lg me-1"></i>Cadastrar livro
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Formulário -->
+    <main class="bg-success-subtle flex-grow-1 py-5">
+      <div class="container py-4">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card mt-5 shadow">
-                    <div class="card-header bg-success">
-                        <h1 class="text-white fw-bold">📚 Novo Livro</h1>
-                    </div>
-                    <div class="card-body">
-                        <form action="" method="POST">
-                            <!-- Titulo -->
-                            <div class="mb-3">
-                                <label for="" class="form-label">
-                                    Título do livro
-                                </label>
-                                <input name="title" type="text" class="form-control">
-                            </div>
+          <div class="col-lg-8 col-xl-6">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <a href="/" class="btn btn-outline-success btn-sm rounded-pill px-3">
+                <i class="bi bi-arrow-left me-1"></i>Voltar
+              </a>
+              <span class="badge bg-white text-success border border-success-subtle rounded-pill px-3 py-2">
+                <i class="bi bi-journal-plus me-1"></i>Novo registro
+              </span>
+            </div>
 
-                            <!-- Autor(a) -->
-                            <div class="mb-3">
-                                <label for="" class="form-label">
-                                    Autor(a)
-                                </label>
-                                <input name="author" type="text" class="form-control">
-                            </div>
+            <div class="card border-0 rounded-4 shadow-sm bg-white">
+              <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                  <span class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-4 p-3 mb-3">
+                    <i class="bi bi-journal-plus display-6"></i>
+                  </span>
+                  <h1 class="fs-2 fw-bolder text-body-emphasis mb-1">Cadastrar novo livro</h1>
+                  <p class="card-text text-body-secondary mb-0">Preencha os campos abaixo para adicionar um título ao acervo.</p>
+                </div>
 
-                            <!-- Sinopse -->
-                            <div class="mb-3">
-                                <label for="" class="form-label">
-                                    Sinopse
-                                </label>
-                                <textarea name="resume" class="form-control"></textarea>
-                            </div>
-                            
-                            <!-- Botões -->
-                            <div class="mb-3 text-end">
-                                <button type="reset" class="btn btn-secondary">
-                                    Limpar
-                                </button>
-                                <button type="submit" class="btn btn-success">
-                                    Salvar
-                                </button>
-                            </div>
-                            
-                        </form>
-                    </div>
-                </div><!-- fim do card -->
-            </div><!-- fim da col -->
-        </div><!-- fim da row -->
-    </div><!-- fim do container -->
+                <form action="/books/new" method="POST">
+                  <!-- Título -->
+                  <div class="form-floating mb-3">
+                    <input name="title" type="text" class="form-control" id="title" placeholder="Título do livro" required>
+                    <label for="title"><i class="bi bi-book me-1 text-success"></i>Título do livro</label>
+                  </div>
+
+                  <!-- Autor(a) -->
+                  <div class="form-floating mb-3">
+                    <input name="author" type="text" class="form-control" id="author" placeholder="Autor(a)" required>
+                    <label for="author"><i class="bi bi-person me-1 text-success"></i>Autor(a)</label>
+                  </div>
+
+                  <!-- Sinopse -->
+                  <div class="form-floating mb-4">
+                    <textarea name="resume" class="form-control" id="resume" placeholder="Sinopse" rows="4" required></textarea>
+                    <label for="resume"><i class="bi bi-card-text me-1 text-success"></i>Sinopse</label>
+                  </div>
+
+                  <!-- Botões -->
+                  <div class="d-flex justify-content-end gap-2">
+                    <button type="reset" class="btn btn-outline-success rounded-pill px-4">
+                      <i class="bi bi-arrow-counterclockwise me-1"></i>Limpar
+                    </button>
+                    <button type="submit" class="btn btn-success rounded-pill px-4 fw-semibold">
+                      <i class="bi bi-check-lg me-1"></i>Salvar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white py-4 mt-auto border-top border-success-subtle">
+      <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 small text-body-secondary">
+        <span class="d-flex align-items-center gap-2">
+          <span class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-3 p-1">
+            <i class="bi bi-book-half"></i>
+          </span>
+          Biblioteca Virtual
+        </span>
+        <span class="text-center">© 2026 Biblioteca Virtual — Todos os direitos reservados.</span>
+        <a href="/" class="link-success link-offset-2 link-underline-opacity-25">Voltar ao acervo</a>
+      </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
